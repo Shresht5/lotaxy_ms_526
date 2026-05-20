@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const links = [
     { path: '/', icon: 'ti-layout-dashboard', label: 'Dashboard' },
     { path: '/hr', icon: 'ti-id-badge', label: 'HR' },
-    { path: '/tasks', icon: 'ti-checklist', label: 'Tasks' },
+    { path: '/project', icon: 'ti-checklist', label: 'Projects' },
     { path: '/customers', icon: 'ti-user-circle', label: 'Customers' },
     { path: '/sales', icon: 'ti-shopping-cart', label: 'Sales' },
     { path: '/inventory', icon: 'ti-package', label: 'Inventory' },

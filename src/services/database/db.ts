@@ -8,11 +8,29 @@ export const initDb = (userDataPath: string) => {
   db = new DatabaseSync(path.join(userDataPath, 'app.db'));
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    phone TEXT,
+    department TEXT,
+    position TEXT,
+    date_of_joining DATE,
+    date_of_birth DATE,
+    total_experience REAL DEFAULT 0,
+    performance TEXT DEFAULT 'Average',
+    potential TEXT DEFAULT 'Medium',
+    ctc REAL DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+    CREATE TABLE IF NOT EXISTS attendance (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    date TEXT NOT NULL,
+    check_in TEXT NOT NULL,     
+    status TEXT NOT NULL DEFAULT 'Present',
+    remark TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
    CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,

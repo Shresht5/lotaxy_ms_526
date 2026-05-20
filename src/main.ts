@@ -20,6 +20,7 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      webSecurity: false,
     },
   });
 
@@ -42,24 +43,19 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   initDb(app.getPath('userData'));
-  // ipcMain.handle('db-get-users', () => getAllUsers());
-  // ipcMain.handle('db-add-user', (_, name, email) => addUser(name, email));
-  // ipcMain.handle('db-delete-user', (_, id) => deleteUser(id));
-  // ipcMain.handle('db-update-user', (_, id, name, email) => updateUser(id, name, email));
+
+  ipcMain.handle('db-get-users', () => getAllUsers());
+  ipcMain.handle('db-add-user', (_, name, email, phone, department, position, date_of_joining, date_of_birth, total_experience, performance, potential, ctc) =>
+    addUser(name, email, phone ?? '', department ?? '', position ?? '', date_of_joining ?? '', date_of_birth ?? '', +total_experience || 0, performance ?? 'Average', potential ?? 'Medium', +ctc || 0));
+  ipcMain.handle('db-update-user', (_, id, name, email, phone, department, position, date_of_joining, date_of_birth, total_experience, performance, potential, ctc) =>
+    updateUser(id, name, email, phone ?? '', department ?? '', position ?? '', date_of_joining ?? '', date_of_birth ?? '', +total_experience || 0, performance ?? 'Average', potential ?? 'Medium', +ctc || 0));
+  ipcMain.handle('db-delete-user', (_, id) => deleteUser(id));
+
   ipcMain.handle('db-get-products', () => getAllProducts());
-
-
-  ipcMain.handle('db-add-product', (_, name, price, mrp, stock, category, detail, image_path) => {
-    console.log('args:', name, price, mrp, stock, category, detail, image_path);
-    console.log('types:', typeof name, typeof price, typeof mrp, typeof stock, typeof category, typeof detail, typeof image_path);
-    return addProduct(name, price, mrp, stock, category ?? '', detail ?? '', image_path ?? '');
-  });
-  ipcMain.handle('db-update-product', (_, id, name, price, mrp, stock, category, detail, image_path) => {
-    return updateProduct(id, name, price, mrp, stock, category ?? '', detail ?? '', image_path ?? '');
-  });
+  ipcMain.handle('db-add-product', (_, name, price, mrp, stock, category, detail, image_path) => { return addProduct(name, price, mrp, stock, category ?? '', detail ?? '', image_path ?? ''); });
+  ipcMain.handle('db-update-product', (_, id, name, price, mrp, stock, category, detail, image_path) => { return updateProduct(id, name, price, mrp, stock, category ?? '', detail ?? '', image_path ?? ''); });
   ipcMain.handle('db-delete-product', (_, id) => deleteProduct(id));
-  // ipcMain.handle('db-get-orders', () => getAllOrders());
-  // ipcMain.handle('db-add-order', (_, userId, productId, qty) => addOrder(userId, productId, qty));
+
   ipcMain.handle('save-image', (_, base64: string, ext: string) => {
     const imagesDir = path.join(app.getPath('userData'), 'images');
     if (!fs.existsSync(imagesDir)) fs.mkdirSync(imagesDir);

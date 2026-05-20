@@ -4,8 +4,8 @@ declare global {
     interface Window {
         api: {
             getUsers: () => Promise<any[]>;
-            addUser: (name: string, email: string) => Promise<void>;
-            updateUser: (id: number, name: string, email: string) => Promise<void>;
+            addUser: (name: string, email: string, phone: string, department: string, position: string, date_of_joining: string, date_of_birth: string, total_experience: number, performance: string, potential: string, ctc: number) => Promise<void>;
+            updateUser: (id: number, name: string, email: string, phone: string, department: string, position: string, date_of_joining: string, date_of_birth: string, total_experience: number, performance: string, potential: string, ctc: number) => Promise<void>;
             deleteUser: (id: number) => Promise<void>;
             getProducts: () => Promise<any[]>;
             addProduct: (name: string, price: number, mrp: number, stock: number, category: string, detail: string, image_path: string | null) => Promise<void>;
