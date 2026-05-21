@@ -31,6 +31,29 @@ export const initDb = (userDataPath: string) => {
     remark TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
+  CREATE TABLE IF NOT EXISTS clients (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  phone TEXT,
+  address TEXT,
+  company_name TEXT,
+  status TEXT DEFAULT 'Active',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  client_id INTEGER REFERENCES clients(id) ON DELETE SET NULL,
+  detail TEXT,
+  what_done TEXT,
+  what_todo TEXT,
+  completion INTEGER DEFAULT 0,
+  status TEXT DEFAULT 'Active',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
    CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -44,9 +67,17 @@ export const initDb = (userDataPath: string) => {
   );
     CREATE TABLE IF NOT EXISTS orders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      user_id INTEGER REFERENCES users(id),
-      product_id INTEGER REFERENCES products(id),
-      quantity INTEGER NOT NULL,
+      product_id INTEGER REFERENCES products(id) ON DELETE SET NULL,
+      product_name TEXT,
+      product_price REAL,
+      receiver_name   TEXT    NOT NULL,
+      phone           TEXT,
+      email           TEXT,
+      address         TEXT,
+      discount REAL    NOT NULL DEFAULT 0,
+      quantity INTEGER NOT NULL DEFAULT 1,
+      final_amount    REAL    NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'Pending' CHECK(status IN ('Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled')),
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Product } from '../types/product';
-
 const EMPTY = { name: '', price: '', mrp: '', stock: '', category: '', detail: '', image_path: '' };
 
 export const Inventory = () => {
@@ -41,6 +40,7 @@ export const Inventory = () => {
                 const base64 = (reader.result as string).split(',')[1];
                 const ext = file.name.split('.').pop() || 'jpg';
                 const savedPath = await window.api.saveImage(base64, ext);
+                console.log('savedpaths', savedPath)
                 imagePathRef.current = savedPath;
                 setForm(f => ({ ...f, image_path: savedPath }));
             };

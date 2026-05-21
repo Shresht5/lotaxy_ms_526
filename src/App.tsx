@@ -5,6 +5,10 @@ import { Inventory } from './page/Inventory';
 import './index.css'
 import { Sidebar } from './components/SideBar';
 import { Users } from './page/Users';
+import { HR } from './page/HR';
+import { Clients } from './page/Client';
+import { Projects } from './page/Project';
+import { Orders } from './page/Orders';
 
 export default () => {
     return (
@@ -15,6 +19,10 @@ export default () => {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<About />} />
+                        <Route path="/hr" element={<HR />} />
+                        <Route path="/project" element={<Projects />} />
+                        <Route path="/clients" element={<Clients />} />
+                        <Route path="/sales" element={<Orders />} />
                         <Route path="/inventory" element={<Inventory />} />
                         <Route path="/users" element={<Users />} />
                     </Routes>
