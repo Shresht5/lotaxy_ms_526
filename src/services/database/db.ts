@@ -7,6 +7,7 @@ let db: DatabaseSync;
 export const initDb = (userDataPath: string) => {
   db = new DatabaseSync(path.join(userDataPath, 'app.db'));
   db.exec(`
+    --employ
     CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -41,7 +42,7 @@ export const initDb = (userDataPath: string) => {
   status TEXT DEFAULT 'Active',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
+--projectmanagement
 CREATE TABLE IF NOT EXISTS projects (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
@@ -49,11 +50,11 @@ CREATE TABLE IF NOT EXISTS projects (
   detail TEXT,
   what_done TEXT,
   what_todo TEXT,
-  completion INTEGER DEFAULT 0,
+  completion INTEGER DEFAULT 0, --0to100
   status TEXT DEFAULT 'Active',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
+--inventory
    CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -65,18 +66,19 @@ CREATE TABLE IF NOT EXISTS projects (
     image_path TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
+  --sales
     CREATE TABLE IF NOT EXISTS orders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       product_id INTEGER REFERENCES products(id) ON DELETE SET NULL,
       product_name TEXT,
       product_price REAL,
-      receiver_name   TEXT    NOT NULL,
-      phone           TEXT,
-      email           TEXT,
-      address         TEXT,
-      discount REAL    NOT NULL DEFAULT 0,
+      receiver_name TEXT NOT NULL,
+      phone TEXT,
+      email TEXT,
+      address TEXT,
+      discount REAL NOT NULL DEFAULT 0,
       quantity INTEGER NOT NULL DEFAULT 1,
-      final_amount    REAL    NOT NULL DEFAULT 0,
+      final_amount REAL NOT NULL DEFAULT 0,
       status TEXT NOT NULL DEFAULT 'Pending' CHECK(status IN ('Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled')),
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );

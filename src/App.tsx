@@ -9,6 +9,7 @@ import { HR } from './page/HR';
 import { Clients } from './page/Client';
 import { Projects } from './page/Project';
 import { Orders } from './page/Orders';
+import { Dashboard } from './page/Dashboard';
 
 export default () => {
     return (
@@ -17,7 +18,7 @@ export default () => {
                 <Sidebar />
                 <main className="flex-1 overflow-auto pl-[52px] ">
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/" element={<Dashboard />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/hr" element={<HR />} />
                         <Route path="/project" element={<Projects />} />
