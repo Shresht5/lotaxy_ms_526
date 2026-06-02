@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useToast } from '../components/ToastHook';
 
 interface DashStats {
     totalUsers: number;
@@ -22,6 +23,8 @@ export const Dashboard = () => {
     const [recentOrders, setRecentOrders] = useState<any[]>([]);
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const { addToast } = useToast();
 
     useEffect(() => {
         const load = async () => {
@@ -79,7 +82,7 @@ export const Dashboard = () => {
     if (loading) return (
         <div className="min-h-screen bg-slate-50 flex items-center justify-center">
             <div className="text-center">
-                <div className="w-10 h-10 rounded-2xl bg-[#8800ff] animate-pulse mx-auto mb-3" />
+                <div className="w-10 h-10 rounded-2xl bg-[--primary-bold-color] animate-pulse mx-auto mb-3" />
                 <p className="text-slate-400 text-sm">Loading dashboard...</p>
             </div>
         </div>
@@ -110,7 +113,6 @@ export const Dashboard = () => {
             </div>
 
             <div className="p-4 sm:p-6 space-y-5">
-                {/* Primary stats */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     {[
                         { label: 'Total Revenue', value: fmt(stats.totalRevenue), icon: 'ti-currency-rupee', color: 'text-[#8800ff]', bg: 'bg-[#f3e6ff]', sub: `${stats.totalOrders} orders` },
@@ -304,14 +306,16 @@ export const Dashboard = () => {
                         <div className="text-sm font-bold text-slate-800 mb-4">Quick Access</div>
                         <div className="grid grid-cols-2 gap-2">
                             {[
-                                { label: 'Add Employee', icon: 'ti-user-plus', color: 'text-[#8800ff]', bg: 'bg-[#f3e6ff]' },
-                                { label: 'New Order', icon: 'ti-shopping-cart-plus', color: 'text-green-600', bg: 'bg-green-50' },
-                                { label: 'Add Product', icon: 'ti-package', color: 'text-orange-500', bg: 'bg-orange-50' },
-                                { label: 'Mark Attendance', icon: 'ti-calendar-plus', color: 'text-blue-600', bg: 'bg-blue-50' },
+                                { label: 'Add Employee', icon: 'ti-user-plus', color: 'text-[#8800ff]', bg: 'bg-[#f3e6ff]', do: () => { addToast('Employ', 'green') } },
+                                { label: 'New Order', icon: 'ti-shopping-cart-plus', color: 'text-green-600', bg: 'bg-green-50', do: () => { addToast('mange', 'blue') } },
+                                { label: 'Add Product', icon: 'ti-package', color: 'text-orange-500', bg: 'bg-orange-50', do: () => { addToast('error', 'red') } },
+                                { label: 'Mark Attendance', icon: 'ti-calendar-plus', color: 'text-blue-600', bg: 'bg-blue-50', do: () => { addToast('go', 'green') } },
                             ].map(q => (
-                                <button key={q.label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50 transition-all text-center">
+                                <button key={q.label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50 transition-all text-center" onClick={q.do}>
                                     <div className={`w-8 h-8 rounded-lg ${q.bg} flex items-center justify-center`}>
+
                                         <i className={`ti ${q.icon} ${q.color} text-sm`} />
+
                                     </div>
                                     <span className="text-xs text-slate-600 font-medium leading-tight">{q.label}</span>
                                 </button>

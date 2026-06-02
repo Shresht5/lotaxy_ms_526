@@ -10,24 +10,29 @@ import { Clients } from './page/Client';
 import { Projects } from './page/Project';
 import { Orders } from './page/Orders';
 import { Dashboard } from './page/Dashboard';
+import { ToastProvider } from './components/ToastHook'
+import { Analytics } from './page/Analytics';
 
 export default () => {
     return (
         <MemoryRouter>
             <div className="flex h-screen relative">
-                <Sidebar />
-                <main className="flex-1 overflow-auto pl-[52px] ">
-                    <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/hr" element={<HR />} />
-                        <Route path="/project" element={<Projects />} />
-                        <Route path="/clients" element={<Clients />} />
-                        <Route path="/sales" element={<Orders />} />
-                        <Route path="/inventory" element={<Inventory />} />
-                        <Route path="/users" element={<Users />} />
-                    </Routes>
-                </main>
+                <ToastProvider>
+                    <Sidebar />
+                    <main className="flex-1 overflow-auto pl-[52px]">
+                        <Routes>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/about" element={<About />} />
+                            <Route path="/hr" element={<HR />} />
+                            <Route path="/project" element={<Projects />} />
+                            <Route path="/clients" element={<Clients />} />
+                            <Route path="/sales" element={<Orders />} />
+                            <Route path="/inventory" element={<Inventory />} />
+                            <Route path="/analytics" element={<Analytics />} />
+                            <Route path="/users" element={<Users />} />
+                        </Routes>
+                    </main>
+                </ToastProvider>
             </div>
         </MemoryRouter>
     )

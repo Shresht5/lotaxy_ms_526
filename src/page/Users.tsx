@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useToast } from '../components/ToastHook';
 
 const EMPTY = {
     name: '', email: '', phone: '', department: '', position: '',
@@ -17,6 +18,7 @@ export const Users = () => {
     const [form, setForm] = useState(EMPTY);
     const [selected, setSelected] = useState<number[]>([]);
 
+    const { addToast } = useToast();
     const load = () => window.api.getUsers().then(data => setUsers(data ?? []));
     useEffect(() => { load(); }, []);
 
@@ -44,7 +46,10 @@ export const Users = () => {
 
     const handleSave = async () => {
         const { name, email, phone, department, position, date_of_joining, date_of_birth, total_experience, performance, potential, ctc } = form;
-        if (!name || !email) return;
+        if (!name || !email) {
+            addToast('add email or name', 'red')
+            return;
+        };
         if (editing) {
             await window.api.updateUser(editing.id, name, email, phone, department, position, date_of_joining, date_of_birth, +total_experience, performance, potential, +ctc);
         } else {
@@ -52,6 +57,7 @@ export const Users = () => {
         }
         setShowModal(false);
         load();
+        addToast("user Saved", "green")
     };
 
     const handleDelete = async (id: number) => {

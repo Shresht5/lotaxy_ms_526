@@ -39,7 +39,7 @@ export function Sidebar() {
     );
 
     return (
-        <nav className=" absolute top-0 left-0 z-[1000] group/nav flex flex-col gap-1 px-2 py-3  w-[52px] hover:w-[180px]     transition-[width] duration-200 ease-in-out      bg-[var(--primary-very-light-color)] border-r       h-screen overflow-hidden shrink-0 [&.expanded]:w-[180px]    ">
+        <nav className=" absolute top-0 left-0 z-[100] group/nav flex flex-col gap-1 px-2 py-3  w-[52px] hover:w-[180px]     transition-[width] duration-200 ease-in-out      bg-[var(--primary-very-light-color)] border-r       h-screen overflow-hidden shrink-0 [&.expanded]:w-[180px]    ">
             {links.map(l => <Item key={l.path} {...l} />)}
             <div className="flex-1" />
             {bottom.map(l => <Item key={l.path} {...l} />)}
