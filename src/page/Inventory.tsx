@@ -74,15 +74,15 @@ export const Inventory = () => {
         return d > 0 ? d : null;
     };
 
-    const inputCls = "w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#b35cff] focus:outline-none focus:ring-2 focus:ring-[#f3e6ff]";
 
+    const inputCls = "w-full rounded-lg border bg-[var(--back-primary)] border-[var(--primary-color)] px-3 py-2 text-sm text-[var(--front-primary)] placeholder:text-[var(--front-secondary)] focus:border-[var(--primary-very-bold-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]";
     return (
-        <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
+        <div className="min-h-screen bg-[var(--back-primary)] ">
             {/* Header */}
-            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="bg-[var(--primary-very-light-color)] p-2 sm:p-4 lg:p-6 shadow-inner shadow-[var(--primary-color)]  flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-tight text-slate-900">Inventory</h1>
-                    <p className="mt-0.5 text-sm text-slate-500">
+                    <h1 className="text-2xl font-bold tracking-tight text-[var(--front-primary)]">Inventory</h1>
+                    <p className="mt-0.5 text-sm text-[var(--front-secondary)]">
                         {products.length} products
                         {lowStock > 0 && (
                             <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
@@ -93,44 +93,44 @@ export const Inventory = () => {
                 </div>
                 <button
                     onClick={openAdd}
-                    className="inline-flex items-center gap-2 rounded-xl bg-[#8800ff] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#5700a3] active:scale-95 transition-all self-start sm:self-auto"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[var(--primary-color)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[var(--primary-bold-color)] active:scale-95 transition-all self-start sm:self-auto"
                 >
                     <i className="ti ti-plus text-base" /> Add Product
                 </button>
             </div>
 
             {/* Search + stats */}
-            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className=" p-2 sm:p-4 lg:p-6 flex flex-col gap-3 sm:flex-row sm:items-center ">
                 <div className="relative flex-1">
-                    <i className="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <i className="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[var(--front-secondary)]" />
                     <input
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                         placeholder="Search products or categories..."
-                        className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#b35cff] focus:outline-none focus:ring-2 focus:ring-[#f3e6ff]"
+                        className={`${inputCls}  pl-8`}
                     />
                 </div>
                 <div className="flex gap-2 text-xs">
-                    <div className="rounded-xl bg-white border border-slate-200 px-3 py-2 text-center min-w-[72px]">
-                        <div className="font-bold text-slate-800 text-base leading-none">{products.length}</div>
-                        <div className="text-slate-400 mt-0.5">Total</div>
+                    <div className="rounded-xl bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] border border-[var(--back-secondary)] px-3 py-2 text-center min-w-[72px]">
+                        <div className="font-bold text-[var(--front-primary)] text-base leading-none">{products.length}</div>
+                        <div className="text-[var(--front-secondary)] mt-0.5">Total</div>
                     </div>
-                    <div className="rounded-xl bg-white border border-slate-200 px-3 py-2 text-center min-w-[72px]">
+                    <div className="rounded-xl bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] border border-[var(--back-secondary)] px-3 py-2 text-center min-w-[72px]">
                         <div className="font-bold text-green-600 text-base leading-none">{products.filter(p => Number(p.stock) > 5).length}</div>
-                        <div className="text-slate-400 mt-0.5">In Stock</div>
+                        <div className="text-[var(--front-secondary)] mt-0.5">In Stock</div>
                     </div>
-                    <div className="rounded-xl bg-white border border-slate-200 px-3 py-2 text-center min-w-[72px]">
+                    <div className="rounded-xl bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] border border-[var(--back-secondary)] px-3 py-2 text-center min-w-[72px]">
                         <div className="font-bold text-red-500 text-base leading-none">{lowStock}</div>
-                        <div className="text-slate-400 mt-0.5">Low</div>
+                        <div className="text-[var(--front-secondary)] mt-0.5">Low</div>
                     </div>
                 </div>
             </div>
 
             {/* Desktop Table */}
-            <div className="hidden lg:block rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+            <div className="  p-2 sm:p-4 lg:p-6 hidden lg:block rounded-2xl border border-[var(--back-secondary)] bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] overflow-hidden">
                 <table className="w-full text-sm">
                     <thead>
-                        <tr className="border-b border-slate-100 bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                        <tr className="border-b border-[var(--back-secondary)] bg-[var(--back-primary)] text-xs font-semibold uppercase tracking-wide text-[var(--front-secondary)]">
                             <th className="px-4 py-3 text-left w-16">Image</th>
                             <th className="px-4 py-3 text-left">Product</th>
                             <th className="px-4 py-3 text-left">Category</th>
@@ -140,34 +140,34 @@ export const Inventory = () => {
                             <th className="px-4 py-3 text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-50">
+                    <tbody className="divide-y divide-[var(--back-primary)]">
                         {filtered.length === 0 && (
-                            <tr><td colSpan={7} className="py-16 text-center text-slate-400">
+                            <tr><td colSpan={7} className="py-16 text-center text-[var(--front-secondary)]">
                                 <i className="ti ti-package-off text-3xl block mb-2" />
                                 No products found
                             </td></tr>
                         )}
                         {filtered.map(p => (
-                            <tr key={p.id} className="group hover:bg-[#f3e6ff]/40 transition-colors">
+                            <tr key={p.id} className="group hover:bg-[var(--back-primary)] transition-colors">
                                 <td className="px-4 py-3">
                                     {p.image_path
-                                        ? <img src={`file://${p.image_path}`} className="w-11 h-11 rounded-xl object-cover ring-1 ring-slate-200" />
-                                        : <div className="w-11 h-11 rounded-xl bg-slate-100 flex items-center justify-center text-slate-300">
+                                        ? <img src={`file://${p.image_path}`} className="w-11 h-11 rounded-xl object-cover ring-1 ring-[var(--back-secondary)]" />
+                                        : <div className="w-11 h-11 rounded-xl bg-[var(--back-primary)] flex items-center justify-center text-[var(--front-secondary)]">
                                             <i className="ti ti-photo text-lg" />
                                         </div>}
                                 </td>
                                 <td className="px-4 py-3">
-                                    <div className="font-semibold text-slate-800">{p.name}</div>
-                                    {p.detail && <div className="text-xs text-slate-400 truncate max-w-[220px] mt-0.5">{p.detail}</div>}
+                                    <div className="font-semibold text-[var(--front-primary)]">{p.name}</div>
+                                    {p.detail && <div className="text-xs text-[var(--front-secondary)] truncate max-w-[220px] mt-0.5">{p.detail}</div>}
                                 </td>
                                 <td className="px-4 py-3">
                                     {p.category
-                                        ? <span className="rounded-lg bg-[#f3e6ff] px-2.5 py-1 text-xs font-medium text-[#8800ff]">{p.category}</span>
-                                        : <span className="text-slate-300">—</span>}
+                                        ? <span className="rounded-lg bg-[var(--primary-very-light-color)] px-2.5 py-1 text-xs font-medium text-[var(--primary-color)]">{p.category}</span>
+                                        : <span className="text-[var(--front-secondary)]">—</span>}
                                 </td>
-                                <td className="px-4 py-3 text-right text-xs text-slate-400 line-through">{fmt(p.mrp)}</td>
+                                <td className="px-4 py-3 text-right text-xs text-[var(--front-secondary)] line-through">{fmt(p.mrp)}</td>
                                 <td className="px-4 py-3 text-right">
-                                    <span className="font-semibold text-slate-800">{fmt(p.price)}</span>
+                                    <span className="font-semibold text-[var(--front-primary)]">{fmt(p.price)}</span>
                                     {discount(p.mrp, p.price) && (
                                         <span className="ml-1.5 text-xs text-green-600 font-medium">{discount(p.mrp, p.price)}% off</span>
                                     )}
@@ -179,10 +179,10 @@ export const Inventory = () => {
                                     </span>
                                 </td>
                                 <td className="px-4 py-3 text-right">
-                                    <button onClick={() => openEdit(p)} className="p-2 rounded-lg hover:bg-[#f3e6ff] text-slate-400 hover:text-[#8800ff] transition-colors mr-1">
+                                    <button onClick={() => openEdit(p)} className="p-2 rounded-lg hover:bg-[var(--primary-very-light-color)] text-[var(--front-secondary)] hover:text-[var(--primary-color)] transition-colors mr-1">
                                         <i className="ti ti-edit text-base" />
                                     </button>
-                                    <button onClick={() => handleDelete(p.id)} className="p-2 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors">
+                                    <button onClick={() => handleDelete(p.id)} className="p-2 rounded-lg hover:bg-red-50 text-[var(--front-secondary)] hover:text-red-500 transition-colors">
                                         <i className="ti ti-trash text-base" />
                                     </button>
                                 </td>
@@ -193,26 +193,26 @@ export const Inventory = () => {
             </div>
 
             {/* Mobile / Tablet Cards */}
-            <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="  p-2 sm:p-4 lg:p-6 lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {filtered.length === 0 && (
-                    <div className="col-span-2 py-16 text-center text-slate-400 bg-white rounded-2xl border border-slate-200">
+                    <div className="col-span-2 py-16 text-center text-[var(--front-secondary)] bg-[var(--primary-very-light-color)] rounded-2xl border border-[var(--back-secondary)]">
                         <i className="ti ti-package-off text-3xl block mb-2" />
                         No products found
                     </div>
                 )}
                 {filtered.map(p => (
-                    <div key={p.id} className="bg-white rounded-2xl border border-slate-200 p-4 flex gap-3 shadow-sm hover:shadow-md transition-shadow">
+                    <div key={p.id} className="bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] rounded-2xl border border-[var(--back-secondary)] p-4 flex gap-3 hover:shadow-md transition-shadow">
                         {p.image_path
-                            ? <img src={`file://${p.image_path}`} className="w-16 h-16 rounded-xl object-cover ring-1 ring-slate-200 shrink-0" />
-                            : <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-slate-300 shrink-0">
+                            ? <img src={`file://${p.image_path}`} className="w-16 h-16 rounded-xl object-cover ring-1 ring-[var(--back-secondary)] shrink-0" />
+                            : <div className="w-16 h-16 rounded-xl bg-[var(--back-primary)] flex items-center justify-center text-[var(--front-secondary)] shrink-0">
                                 <i className="ti ti-photo text-xl" />
                             </div>}
                         <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between gap-2">
                                 <div>
-                                    <div className="font-semibold text-slate-800 truncate">{p.name}</div>
+                                    <div className="font-semibold text-[var(--front-primary)] truncate">{p.name}</div>
                                     {p.category && (
-                                        <span className="text-xs bg-[#f3e6ff] text-[#8800ff] rounded-md px-1.5 py-0.5 mt-0.5 inline-block">{p.category}</span>
+                                        <span className="text-xs bg-[var(--primary-very-light-color)] text-[var(--primary-color)] rounded-md px-1.5 py-0.5 mt-0.5 inline-block">{p.category}</span>
                                     )}
                                 </div>
                                 <span className={`shrink-0 text-xs font-semibold rounded-lg px-2 py-1 ${Number(p.stock) <= 5 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-700'}`}>
@@ -221,17 +221,17 @@ export const Inventory = () => {
                             </div>
                             <div className="mt-2 flex items-center justify-between">
                                 <div>
-                                    <span className="font-bold text-slate-800">{fmt(p.price)}</span>
-                                    <span className="ml-2 text-xs text-slate-400 line-through">{fmt(p.mrp)}</span>
+                                    <span className="font-bold text-[var(--front-primary)]">{fmt(p.price)}</span>
+                                    <span className="ml-2 text-xs text-[var(--front-secondary)] line-through">{fmt(p.mrp)}</span>
                                     {discount(p.mrp, p.price) && (
                                         <span className="ml-1 text-xs text-green-600">{discount(p.mrp, p.price)}% off</span>
                                     )}
                                 </div>
                                 <div className="flex gap-1">
-                                    <button onClick={() => openEdit(p)} className="p-1.5 rounded-lg hover:bg-[#f3e6ff] text-slate-400 hover:text-[#8800ff] transition-colors">
+                                    <button onClick={() => openEdit(p)} className="p-1.5 rounded-lg hover:bg-[var(--primary-very-light-color)] text-[var(--front-secondary)] hover:text-[var(--primary-color)] transition-colors">
                                         <i className="ti ti-edit" />
                                     </button>
-                                    <button onClick={() => handleDelete(p.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors">
+                                    <button onClick={() => handleDelete(p.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-[var(--front-secondary)] hover:text-red-500 transition-colors">
                                         <i className="ti ti-trash" />
                                     </button>
                                 </div>
@@ -244,10 +244,10 @@ export const Inventory = () => {
             {/* Modal */}
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="w-full sm:max-w-lg bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-                        <div className="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-                            <h2 className="text-base font-bold text-slate-800">{editing ? 'Edit Product' : 'Add New Product'}</h2>
-                            <button onClick={() => setShowModal(false)} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 transition-colors">
+                    <div className="w-full sm:max-w-xl bg-[var(--back-primary)] rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+                        <div className=" border-b border-[var(--back-secondary)] px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
+                            <h2 className="text-base font-bold text-[var(--front-primary)]">{editing ? 'Edit Product' : 'Add New Product'}</h2>
+                            <button onClick={() => setShowModal(false)} className="p-1.5 rounded-lg hover:bg-[var(--back-primary)] text-[var(--front-secondary)] transition-colors">
                                 <i className="ti ti-x text-lg" />
                             </button>
                         </div>
@@ -255,11 +255,11 @@ export const Inventory = () => {
                         <div className="p-6 space-y-4">
                             <div
                                 onClick={handleImagePick}
-                                className="w-full h-36 border-2 border-dashed border-slate-200 rounded-xl flex items-center justify-center cursor-pointer hover:border-[#b35cff] hover:bg-[#f3e6ff]/30 transition-all overflow-hidden group"
+                                className="w-full h-36 border-2 border-dashed border-[var(--back-secondary)] rounded-xl flex items-center justify-center cursor-pointer hover:border-[var(--primary-light-color)] hover:bg-[var(--primary-very-light-color)] transition-all overflow-hidden group"
                             >
                                 {form.image_path
                                     ? <img src={`file://${form.image_path}`} className="h-full w-full object-cover" />
-                                    : <div className="text-center text-slate-400 group-hover:text-[#8800ff] transition-colors">
+                                    : <div className="text-center text-[var(--front-secondary)] group-hover:text-[var(--primary-color)] transition-colors">
                                         <i className="ti ti-cloud-upload text-3xl block" />
                                         <p className="text-xs mt-1 font-medium">Click to upload image</p>
                                     </div>}
@@ -271,13 +271,13 @@ export const Inventory = () => {
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="text-xs font-medium text-slate-500 mb-1 block">MRP *</label>
+                                    <label className="text-xs font-medium text-[var(--front-secondary)] mb-1 block">MRP *</label>
                                     <input type="number" placeholder="0" value={form.mrp}
                                         onChange={e => setForm(f => ({ ...f, mrp: e.target.value }))}
                                         className={inputCls} />
                                 </div>
                                 <div>
-                                    <label className="text-xs font-medium text-slate-500 mb-1 block">Sale Price *</label>
+                                    <label className="text-xs font-medium text-[var(--front-secondary)] mb-1 block">Sale Price *</label>
                                     <input type="number" placeholder="0" value={form.price}
                                         onChange={e => setForm(f => ({ ...f, price: e.target.value }))}
                                         className={inputCls} />
@@ -286,13 +286,13 @@ export const Inventory = () => {
 
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="text-xs font-medium text-slate-500 mb-1 block">Stock *</label>
+                                    <label className="text-xs font-medium text-[var(--front-secondary)] mb-1 block">Stock *</label>
                                     <input type="number" placeholder="0" value={form.stock}
                                         onChange={e => setForm(f => ({ ...f, stock: e.target.value }))}
                                         className={inputCls} />
                                 </div>
                                 <div>
-                                    <label className="text-xs font-medium text-slate-500 mb-1 block">Category</label>
+                                    <label className="text-xs font-medium text-[var(--front-secondary)] mb-1 block">Category</label>
                                     <input placeholder="e.g. Furniture" value={form.category}
                                         onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
                                         className={inputCls} />
@@ -307,11 +307,11 @@ export const Inventory = () => {
 
                         <div className="px-6 pb-6 flex gap-3">
                             <button onClick={() => setShowModal(false)}
-                                className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                                className="flex-1 rounded-xl border border-[var(--back-secondary)] py-2.5 text-sm font-medium text-[var(--front-secondary)] hover:bg-[var(--back-primary)] transition-colors">
                                 Cancel
                             </button>
                             <button onClick={handleSave}
-                                className="flex-1 rounded-xl bg-[#8800ff] py-2.5 text-sm font-semibold text-white hover:bg-[#5700a3] active:scale-95 transition-all shadow-sm">
+                                className="flex-1 rounded-xl bg-[var(--primary-color)] py-2.5 text-sm font-semibold text-white hover:bg-[var(--primary-bold-color)] active:scale-95 transition-all shadow-sm">
                                 {editing ? 'Save Changes' : 'Add Product'}
                             </button>
                         </div>

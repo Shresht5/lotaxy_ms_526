@@ -170,241 +170,134 @@ export const Orders = () => {
     };
 
     const handleSave = async () => {
-
         const finalAmount =
             (Number(form.product_price) * Number(form.quantity))
             - Number(form.discount);
-
         if (editing) {
-
             await window.api.updateOrder(
-
                 editing.id,
-
                 form.product_id,
                 form.product_name,
                 Number(form.product_price),
-
                 form.receiver_name,
                 form.phone,
                 form.email,
                 form.address,
-
                 Number(form.discount),
                 Number(form.quantity),
                 finalAmount,
-
                 form.status
             );
-
         } else {
-
             await window.api.addOrder(
-
                 form.product_id,
                 form.product_name,
                 Number(form.product_price),
-
                 form.receiver_name,
                 form.phone,
                 form.email,
                 form.address,
-
                 Number(form.discount),
                 Number(form.quantity),
                 finalAmount,
-
                 form.status
             );
         }
-
         setShowModal(false);
-
         load();
     };
 
     const handleDelete = async (id: number) => {
-
         if (confirm('Delete this order?')) {
-
             await window.api.deleteOrder(id);
-
             load();
         }
     };
 
-    const inputCls =
-        'w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#f3e6ff] focus:border-[#b35cff]';
 
-    // ── Render ──────────────────────────────────────────────
-
+    const inputCls = "w-full rounded-lg border bg-[var(--back-primary)] border-[var(--primary-color)] px-3 py-2 text-sm text-[var(--front-primary)] placeholder:text-[var(--front-secondary)] focus:border-[var(--primary-very-bold-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]";
     return (
-
-        <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
-
-            {/* Header */}
-
-            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
+        <div className="min-h-screen bg-[var(--back-primary)] ">
+            <div className=" p-2 sm:p-4 lg:p-8 bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)]  flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-
-                    <h1 className="text-2xl font-bold text-slate-900">
-                        Orders
-                    </h1>
-
-                    <p className="mt-1 text-sm text-slate-500">
+                    <h1 className="text-2xl font-bold text-[var(--front-primary)]">Orders</h1>
+                    <p className="mt-1 text-sm text-[var(--front-secondary)]">
                         {orders.length} total orders · ₹{totalRevenue.toFixed(2)} revenue
                     </p>
                 </div>
-
-                <button
-                    onClick={openAdd}
-                    className="inline-flex items-center gap-2 rounded-xl bg-[#8800ff] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5700a3] transition-all"
-                >
-                    <i className="ti ti-plus" />
-                    New Order
+                <button onClick={openAdd}
+                    className="inline-flex items-center gap-2 rounded-xl bg-[var(--primary-color)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[var(--primary-bold-color)] transition-all">
+                    <i className="ti ti-plus" /> New Order
                 </button>
             </div>
 
             {/* Search */}
-
-            <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center">
-
+            <div className="p-2 sm:p-4 lg:p-8  flex flex-col gap-3 lg:flex-row lg:items-center">
                 <div className="relative flex-1">
-
-                    <i className="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-
-                    <input
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
+                    <i className="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[var(--front-secondary)]" />
+                    <input value={search} onChange={e => setSearch(e.target.value)}
                         placeholder="Search customer, product or phone..."
-                        className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#f3e6ff] focus:border-[#b35cff]"
-                    />
+                        className={`${inputCls}  pl-8`} />
                 </div>
-
-                <div className="flex gap-1.5 flex-wrap rounded-xl border border-slate-200 bg-white p-1">
-
+                <div className="flex gap-1.5 flex-wrap rounded-xl  p-1">
                     {['All', ...STATUSES].map(s => (
-
-                        <button
-                            key={s}
-                            onClick={() => setFilterStatus(s)}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${filterStatus === s
-                                ? 'bg-[#f3e6ff] text-[#8800ff]'
-                                : 'text-slate-500 hover:bg-slate-50'
-                                }`}
-                        >
+                        <button key={s} onClick={() => setFilterStatus(s)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${filterStatus === s ? 'bg-[var(--primary-color)] text-white  shadow-md shadow-[var(--primary-very-light-color)] ' : 'bg-[var(--back-pirmary)] border border-[var(--back-secondary)] text-[var(--front-secondary)] hover:border-[var(--primary-light-color)] hover:text-[var(--primary-color)]  shadow-md shadow-[var(--primary-bold-color)] hover:shadow-none'}`}>
                             {s}
                         </button>
                     ))}
                 </div>
             </div>
 
-            {/* Orders */}
+            {/* Empty state */}
             {filtered.length === 0 && (
-
-                <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white py-20 px-6 text-center shadow-sm">
-
-                    <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#f3e6ff]">
-
-                        <i className="ti ti-shopping-cart-off text-5xl text-[#8800ff]" />
-
+                <div className=" p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center rounded-3xl border border-dashed border-[var(--back-secondary)] bg-[var(--primary-very-light-color)] py-20 px-6 text-center">
+                    <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-[var(--primary-very-light-color)]">
+                        <i className="ti ti-shopping-cart-off text-5xl text-[var(--primary-color)]" />
                     </div>
-
-                    <h2 className="text-xl font-bold text-slate-800">
-                        No Orders Found
-                    </h2>
+                    <h2 className="text-xl font-bold text-[var(--front-primary)]">No Orders Found</h2>
                 </div>
             )}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
 
+            {/* Order cards */}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 p-2 sm:p-4 lg:p-8 ">
                 {filtered.map(o => (
-
-                    <div
-                        key={o.id}
-                        className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-                    >
+                    <div key={o.id}
+                        className="rounded-2xl border border-[var(--back-secondary)] bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] p-5">
 
                         <div className="flex items-start justify-between gap-3 mb-4">
-
                             <div>
-
-                                <h3 className="font-bold text-slate-900">
-                                    {o.receiver_name}
-                                </h3>
-
-                                <p className="text-xs text-slate-400 mt-1">
-                                    {o.product_name}
-                                </p>
+                                <h3 className="font-bold text-[var(--front-primary)]">{o.receiver_name}</h3>
+                                <p className="text-xs text-[var(--front-secondary)] mt-1">{o.product_name}</p>
                             </div>
-
                             <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusMeta[o.status]?.badge}`}>
                                 {o.status}
                             </span>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 text-sm mb-4">
-
-                            <div>
-                                <p className="text-slate-400 text-xs mb-1">
-                                    Quantity
-                                </p>
-
-                                <p className="font-semibold text-slate-700">
-                                    {o.quantity}
-                                </p>
-                            </div>
-
-                            <div>
-                                <p className="text-slate-400 text-xs mb-1">
-                                    Amount
-                                </p>
-
-                                <p className="font-bold text-[#8800ff]">
-                                    ₹{o.final_amount}
-                                </p>
-                            </div>
-
-                            <div>
-                                <p className="text-slate-400 text-xs mb-1">
-                                    Phone
-                                </p>
-
-                                <p className="text-slate-700">
-                                    {o.phone || '—'}
-                                </p>
-                            </div>
-
-                            <div>
-                                <p className="text-slate-400 text-xs mb-1">
-                                    Price
-                                </p>
-
-                                <p className="text-slate-700">
-                                    ₹{o.product_price}
-                                </p>
-                            </div>
+                            {[
+                                { label: 'Quantity', value: o.quantity, cls: 'font-semibold text-[var(--front-primary)]' },
+                                { label: 'Amount', value: `₹${o.final_amount}`, cls: 'font-bold text-[var(--primary-color)]' },
+                                { label: 'Phone', value: o.phone || '—', cls: 'text-[var(--front-primary)]' },
+                                { label: 'Price', value: `₹${o.product_price}`, cls: 'text-[var(--front-primary)]' },
+                            ].map(({ label, value, cls }) => (
+                                <div key={label}>
+                                    <p className="text-[var(--front-secondary)] text-xs mb-1">{label}</p>
+                                    <p className={cls}>{value}</p>
+                                </div>
+                            ))}
                         </div>
 
-                        <div className="flex items-center justify-between border-t border-slate-100 pt-4">
-
-                            <div className="text-xs text-slate-400">
-                                #{o.id}
-                            </div>
-
+                        <div className="flex items-center justify-between border-t border-[var(--back-secondary)] pt-4">
+                            <div className="text-xs text-[var(--front-secondary)]">#{o.id}</div>
                             <div className="flex gap-1">
-
-                                <button
-                                    onClick={() => openEdit(o)}
-                                    className="p-2 rounded-lg hover:bg-[#f3e6ff] text-slate-400 hover:text-[#8800ff]"
-                                >
+                                <button onClick={() => openEdit(o)}
+                                    className="p-2 rounded-lg hover:bg-[var(--primary-very-light-color)] text-[var(--front-secondary)] hover:text-[var(--primary-color)]">
                                     <i className="ti ti-edit" />
                                 </button>
-
-                                <button
-                                    onClick={() => handleDelete(o.id)}
-                                    className="p-2 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500"
-                                >
+                                <button onClick={() => handleDelete(o.id)}
+                                    className="p-2 rounded-lg hover:bg-red-50 text-[var(--front-secondary)] hover:text-red-500">
                                     <i className="ti ti-trash" />
                                 </button>
                             </div>
@@ -414,295 +307,122 @@ export const Orders = () => {
             </div>
 
             {/* Modal */}
-
             {showModal && (
-
                 <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-
-                    <div className="w-full sm:max-w-2xl max-h-[94vh] overflow-y-auto rounded-2xl bg-white shadow-2xl">
-
-                        {/* Header */}
-
-                        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-100 bg-white px-6 py-4 rounded-t-2xl">
-
+                    <div className="w-full sm:max-w-xl bg-[var(--back-primary)] rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+                        <div className=" border-b border-[var(--back-secondary)] px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
                             <div className="flex items-center gap-3">
-
-                                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3e6ff]">
-                                    <i className="ti ti-shopping-cart text-[#8800ff]" />
+                                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--primary-very-light-color)]">
+                                    <i className="ti ti-shopping-cart text-[var(--primary-color)]" />
                                 </div>
-
-                                <h2 className="font-bold text-slate-800">
+                                <h2 className="font-bold text-[var(--front-primary)]">
                                     {editing ? 'Edit Order' : 'New Order'}
                                 </h2>
                             </div>
-
-                            <button
-                                onClick={() => setShowModal(false)}
-                                className="p-2 rounded-lg hover:bg-slate-100 text-slate-400"
-                            >
+                            <button onClick={() => setShowModal(false)}
+                                className="p-2 rounded-lg hover:bg-[var(--back-primary)] text-[var(--front-secondary)]">
                                 <i className="ti ti-x" />
                             </button>
                         </div>
 
-                        {/* Body */}
-
+                        {/* Modal body */}
                         <div className="p-6 space-y-4">
-
                             <div className="grid sm:grid-cols-2 gap-4">
-
-                                {/* Product Select */}
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Product
-                                    </label>
-
-                                    <select
-                                        value={form.product_id ?? ''}
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Product</label>
+                                    <select value={form.product_id ?? ''}
                                         onChange={e => {
-
-                                            const selectedId =
-                                                Number(e.target.value);
-
-                                            const product =
-                                                products.find(
-                                                    p => p.id === selectedId
-                                                );
-
+                                            const selectedId = Number(e.target.value);
+                                            const product = products.find(p => p.id === selectedId);
                                             setForm(f => ({
-
                                                 ...f,
-
                                                 product_id: selectedId,
-
-                                                product_name:
-                                                    product?.name ?? '',
-
-                                                product_price:
-                                                    product?.price ?? 0,
+                                                product_name: product?.name ?? '',
+                                                product_price: product?.price ?? 0,
                                             }));
                                         }}
-                                        className={inputCls}
-                                    >
-
-                                        <option value="">
-                                            Select Product
-                                        </option>
-
-                                        {products.map(product => (
-
-                                            <option
-                                                key={product.id}
-                                                value={product.id}
-                                            >
-                                                {product.name}
-                                            </option>
-                                        ))}
+                                        className={inputCls}>
+                                        <option value="">Select Product</option>
+                                        {products.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                                     </select>
                                 </div>
-
-                                {/* Product Price */}
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Product Price
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        value={form.product_price}
-                                        onChange={e =>
-                                            setField(
-                                                'product_price',
-                                                Number(e.target.value)
-                                            )
-                                        }
-                                        className={inputCls}
-                                    />
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Product Price</label>
+                                    <input type="number" value={form.product_price}
+                                        onChange={e => setField('product_price', Number(e.target.value))}
+                                        className={inputCls} />
                                 </div>
                             </div>
-
-                            {/* Receiver */}
 
                             <div className="grid sm:grid-cols-2 gap-4">
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Receiver Name
-                                    </label>
-
-                                    <input
-                                        value={form.receiver_name}
-                                        onChange={e =>
-                                            setField(
-                                                'receiver_name',
-                                                e.target.value
-                                            )
-                                        }
-                                        className={inputCls}
-                                    />
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Receiver Name</label>
+                                    <input value={form.receiver_name}
+                                        onChange={e => setField('receiver_name', e.target.value)}
+                                        className={inputCls} />
                                 </div>
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Phone
-                                    </label>
-
-                                    <input
-                                        value={form.phone}
-                                        onChange={e =>
-                                            setField('phone', e.target.value)
-                                        }
-                                        className={inputCls}
-                                    />
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Phone</label>
+                                    <input value={form.phone}
+                                        onChange={e => setField('phone', e.target.value)}
+                                        className={inputCls} />
                                 </div>
                             </div>
-
-                            {/* Email + Quantity */}
 
                             <div className="grid sm:grid-cols-2 gap-4">
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Email
-                                    </label>
-
-                                    <input
-                                        value={form.email}
-                                        onChange={e =>
-                                            setField('email', e.target.value)
-                                        }
-                                        className={inputCls}
-                                    />
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Email</label>
+                                    <input value={form.email}
+                                        onChange={e => setField('email', e.target.value)}
+                                        className={inputCls} />
                                 </div>
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Quantity
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        value={form.quantity}
-                                        onChange={e =>
-                                            setField(
-                                                'quantity',
-                                                Number(e.target.value)
-                                            )
-                                        }
-                                        className={inputCls}
-                                    />
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Quantity</label>
+                                    <input type="number" value={form.quantity}
+                                        onChange={e => setField('quantity', Number(e.target.value))}
+                                        className={inputCls} />
                                 </div>
                             </div>
-
-                            {/* Address */}
 
                             <div>
-
-                                <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                    Address
-                                </label>
-
-                                <textarea
-                                    rows={3}
-                                    value={form.address}
-                                    onChange={e =>
-                                        setField('address', e.target.value)
-                                    }
-                                    className={`${inputCls} resize-none`}
-                                />
+                                <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Address</label>
+                                <textarea rows={3} value={form.address}
+                                    onChange={e => setField('address', e.target.value)}
+                                    className={`${inputCls} resize-none`} />
                             </div>
 
-                            {/* Bottom Row */}
-
                             <div className="grid sm:grid-cols-3 gap-4">
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Discount
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        value={form.discount}
-                                        onChange={e =>
-                                            setField(
-                                                'discount',
-                                                Number(e.target.value)
-                                            )
-                                        }
-                                        className={inputCls}
-                                    />
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Discount</label>
+                                    <input type="number" value={form.discount}
+                                        onChange={e => setField('discount', Number(e.target.value))}
+                                        className={inputCls} />
                                 </div>
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Final Amount
-                                    </label>
-
-                                    <input
-                                        disabled
-                                        value={
-                                            (
-                                                Number(form.product_price)
-                                                * Number(form.quantity)
-                                            ) - Number(form.discount)
-                                        }
-                                        className={`${inputCls} bg-slate-50 font-bold text-[#8800ff]`}
-                                    />
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Final Amount</label>
+                                    <input disabled
+                                        value={(Number(form.product_price) * Number(form.quantity)) - Number(form.discount)}
+                                        className={`${inputCls} bg-[var(--back-primary)] font-bold text-[var(--primary-color)]`} />
                                 </div>
-
                                 <div>
-
-                                    <label className="block mb-1.5 text-xs font-semibold text-slate-500">
-                                        Status
-                                    </label>
-
-                                    <select
-                                        value={form.status}
-                                        onChange={e =>
-                                            setField('status', e.target.value)
-                                        }
-                                        className={inputCls}
-                                    >
-
-                                        {STATUSES.map(s => (
-
-                                            <option
-                                                key={s}
-                                                value={s}
-                                            >
-                                                {s}
-                                            </option>
-                                        ))}
+                                    <label className="block mb-1.5 text-xs font-semibold text-[var(--front-secondary)]">Status</label>
+                                    <select value={form.status}
+                                        onChange={e => setField('status', e.target.value)}
+                                        className={inputCls}>
+                                        {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Footer */}
-
+                        {/* Modal footer */}
                         <div className="flex gap-3 px-6 pb-6">
-
-                            <button
-                                onClick={() => setShowModal(false)}
-                                className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
-                            >
+                            <button onClick={() => setShowModal(false)}
+                                className="flex-1 rounded-xl border border-[var(--back-secondary)] py-2.5 text-sm font-medium text-[var(--front-secondary)] hover:bg-[var(--back-primary)]">
                                 Cancel
                             </button>
-
-                            <button
-                                onClick={handleSave}
-                                className="flex-1 rounded-xl bg-[#8800ff] py-2.5 text-sm font-semibold text-white hover:bg-[#5700a3]"
-                            >
+                            <button onClick={handleSave}
+                                className="flex-1 rounded-xl bg-[var(--primary-color)] py-2.5 text-sm font-semibold text-white hover:bg-[var(--primary-bold-color)]">
                                 {editing ? 'Save Changes' : 'Create Order'}
                             </button>
                         </div>

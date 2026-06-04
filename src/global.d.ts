@@ -1,5 +1,7 @@
 export { };
-
+declare module '*.css';
+declare module '*.scss';
+declare module '*.module.css';
 declare global {
     interface Window {
         api: {

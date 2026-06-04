@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --primary-very-bold-color: #260047;
   --primary-bold-color: #5700a3;
   --primary-color: #8800ff;
   --primary-light-color: #b35cff;
   --primary-very-light-color: #F3E6FF;
+
   --back-primary: #fafafa;
   --back-secondary: #bbbbbb;
   --front-primary: #050505;
@@ -14,10 +16,12 @@
 }
 
 .dark {
-  --primary-bold-color: #F3E6FF;
-  --primary-color: #B35CFF;
-  --primary-light-color: #8800ff;
-  --primary-very-light-color: #5700a3;
+  --primary-very-bold-color: #F3E6FF;
+  --primary-bold-color: #B35CFF;
+  --primary-color: #8800ff;
+  --primary-light-color: #5700a3;
+  --primary-very-light-color: #260047;
+
   --back-primary: #050505;
   --back-secondary: #444444;
   --front-primary: #fafafa;
@@ -39,9 +43,7 @@ h6 {
 }
 
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   margin: auto;
 }
 
@@ -59,4 +61,10 @@ body {
 
 .animate-slide-in {
   animation: slideIn 0.8s ease;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--back-primary);
 }

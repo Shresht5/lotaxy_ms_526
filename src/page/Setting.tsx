@@ -4,7 +4,7 @@ const Setting = () => {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <div className="p-6 bg-[var(--back-primary)]">
+        <div className="p-6 bg-[var(--back-primary)] min-h-screen">
             <div className={`max-w-md rounded-xl space-y-4 p-5  bg-[var(--back-primary)] text-[var(--front-primary)]`} >
                 <h2 className="text-xl font-bold ">Settings</h2>
                 <div className="flex items-center justify-between border-[2px] p-5 border-[var(--back-secondary)]">

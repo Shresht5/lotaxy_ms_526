@@ -1,6 +1,7 @@
+// @ts-ignore
+import './index.css'
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { Inventory } from './page/Inventory';
-import './index.css'
 import { Sidebar } from './components/SideBar';
 import { Users } from './page/Users';
 import { HR } from './page/HR';

@@ -73,26 +73,25 @@ export const Users = () => {
         return colors[(name?.charCodeAt(0) ?? 0) % colors.length];
     };
 
-    const inputCls = "w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#b35cff] focus:outline-none focus:ring-2 focus:ring-[#f3e6ff]";
-    const selectCls = "w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-800 focus:border-[#b35cff] focus:outline-none focus:ring-2 focus:ring-[#f3e6ff] bg-white";
-
+    const inputCls = "w-full rounded-lg border bg-[var(--back-primary)] border-[var(--primary-color)] px-3 py-2 text-sm text-[var(--front-primary)] placeholder:text-[var(--front-secondary)] focus:border-[var(--primary-very-bold-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]";
+    const selectCls = "w-full rounded-lg border bg-[var(--back-primary)] border-[var(--primary-color)] px-3 py-2 text-sm text-[var(--front-primary)] placeholder:text-[var(--front-secondary)] focus:border-[var(--primary-very-bold-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]";
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-[var(--back-primary)]">
             {/* Top bar */}
-            <div className="bg-white border-b border-slate-200 px-6 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] border-[var(--back-secondary)] px-6 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
-                    <h1 className="text-lg font-bold text-slate-900">Users</h1>
-                    <span className="rounded-full bg-[#f3e6ff] text-[#8800ff] text-xs font-semibold px-2.5 py-0.5">{users.length}</span>
+                    <h1 className="text-lg font-bold text-[var(--front-primary)]">Users</h1>
+                    <span className="rounded-full bg-[var(--primary-very-light-color)] text-[var(--primary-color)] text-xs font-semibold px-2.5 py-0.5">{users.length}</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="relative">
-                        <i className="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
+                        <i className="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-[var(--front-secondary)] text-sm" />
                         <input value={search} onChange={e => setSearch(e.target.value)}
                             placeholder="Search users..."
-                            className="rounded-lg border border-slate-200 bg-slate-50 py-2 pl-8 pr-4 text-sm placeholder:text-slate-400 focus:border-[#b35cff] focus:outline-none focus:ring-2 focus:ring-[#f3e6ff] w-56" />
+                            className={`${inputCls}  pl-8`} />
                     </div>
                     <button onClick={openAdd}
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-[#8800ff] px-4 py-2 text-sm font-semibold text-white hover:bg-[#5700a3] active:scale-95 transition-all">
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--primary-color)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--primary-bold-color)] active:scale-95 transition-all">
                         <i className="ti ti-plus" /> Add User
                     </button>
                 </div>
@@ -100,11 +99,10 @@ export const Users = () => {
 
             {/* Table */}
             <div className="p-4 sm:p-6">
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    {/* Table header with bulk actions */}
+                <div className="bg-[var(--primary-very-light-color)] shadow-inner shadow-[var(--primary-color)] rounded-2xl border border-[var(--back-secondary)] overflow-hidden">
                     {selected.length > 0 && (
-                        <div className="px-4 py-2.5 bg-[#f3e6ff] border-b border-[#b35cff]/20 flex items-center gap-3">
-                            <span className="text-sm font-medium text-[#8800ff]">{selected.length} selected</span>
+                        <div className="px-4 py-2.5 bg-[var(--primary-very-light-color)] border-b border-[var(--primary-light-color)] flex items-center gap-3">
+                            <span className="text-sm font-medium text-[var(--primary-color)]">{selected.length} selected</span>
                             <button className="text-xs text-red-500 hover:text-red-700 font-medium">Delete selected</button>
                         </div>
                     )}
@@ -112,12 +110,12 @@ export const Users = () => {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm min-w-[800px]">
                             <thead>
-                                <tr className="border-b border-slate-100 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                                <tr className="border-b border-[var(--back-secondary)] text-xs font-semibold uppercase tracking-wide text-[var(--front-secondary)]">
                                     <th className="px-4 py-3 text-left w-10">
                                         <input type="checkbox"
                                             checked={selected.length === filtered.length && filtered.length > 0}
                                             onChange={toggleAll}
-                                            className="rounded border-slate-300 accent-[#8800ff]" />
+                                            className="rounded border-[var(--back-secondary)] accent-[var(--primary-color)]" />
                                     </th>
                                     <th className="px-4 py-3 text-left">User</th>
                                     <th className="px-4 py-3 text-left">Contact</th>
@@ -128,21 +126,21 @@ export const Users = () => {
                                     <th className="px-4 py-3 text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-50">
+                            <tbody className="divide-y divide-[var(--back-primary)]">
                                 {filtered.length === 0 && (
                                     <tr><td colSpan={8} className="py-20 text-center">
-                                        <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
-                                            <i className="ti ti-users text-2xl text-slate-400" />
+                                        <div className="w-14 h-14 rounded-2xl bg-[var(--back-primary)] flex items-center justify-center mx-auto mb-3">
+                                            <i className="ti ti-users text-2xl text-[var(--front-secondary)]" />
                                         </div>
-                                        <p className="text-slate-500 font-medium">No users found</p>
-                                        <p className="text-slate-400 text-xs mt-1">Add your first user to get started</p>
+                                        <p className="text-[var(--front-primary)] font-medium">No users found</p>
+                                        <p className="text-[var(--front-secondary)] text-xs mt-1">Add your first user to get started</p>
                                     </td></tr>
                                 )}
                                 {filtered.map(u => (
-                                    <tr key={u.id} className={`hover:bg-slate-50 transition-colors ${selected.includes(u.id) ? 'bg-[#f3e6ff]/30' : ''}`}>
+                                    <tr key={u.id} className={`hover:bg-[var(--primary-color)] transition-colors ${selected.includes(u.id) ? 'bg-[var(--primary-very-light-color)]' : ''}`}>
                                         <td className="px-4 py-3">
                                             <input type="checkbox" checked={selected.includes(u.id)} onChange={() => toggleSelect(u.id)}
-                                                className="rounded border-slate-300 accent-[#8800ff]" />
+                                                className="rounded border-[var(--back-secondary)] accent-[var(--primary-color)]" />
                                         </td>
                                         <td className="px-4 py-3">
                                             <div className="flex items-center gap-3">
@@ -151,43 +149,43 @@ export const Users = () => {
                                                     {initials(u.name)}
                                                 </div>
                                                 <div>
-                                                    <div className="font-medium text-slate-800">{u.name}</div>
-                                                    <div className="text-xs text-slate-400">ID #{u.id}</div>
+                                                    <div className="font-medium text-[var(--front-primary)]">{u.name}</div>
+                                                    <div className="text-xs text-[var(--front-secondary)]">ID #{u.id}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-4 py-3">
-                                            <div className="text-slate-700 text-xs">{u.email}</div>
-                                            <div className="text-slate-400 text-xs">{u.phone || '—'}</div>
+                                            <div className="text-[var(--front-primary)] text-xs">{u.email}</div>
+                                            <div className="text-[var(--front-secondary)] text-xs">{u.phone || '—'}</div>
                                         </td>
                                         <td className="px-4 py-3">
                                             {u.department
-                                                ? <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">{u.department}</span>
-                                                : <span className="text-slate-300 text-xs">—</span>}
+                                                ? <span className="rounded-md bg-[var(--back-primary)] px-2 py-0.5 text-xs font-medium text-[var(--front-primary)]">{u.department}</span>
+                                                : <span className="text-[var(--front-secondary)] text-xs">—</span>}
                                         </td>
-                                        <td className="px-4 py-3 text-xs text-slate-600">{u.position || '—'}</td>
-                                        <td className="px-4 py-3 text-xs text-slate-500">
+                                        <td className="px-4 py-3 text-xs text-[var(--front-primary)]">{u.position || '—'}</td>
+                                        <td className="px-4 py-3 text-xs text-[var(--front-secondary)]">
                                             {u.date_of_joining ? new Date(u.date_of_joining).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
                                         </td>
                                         <td className="px-4 py-3">
                                             <div className="flex flex-col gap-1">
                                                 {u.performance && (
-                                                    <span className="text-xs text-slate-500">
-                                                        Perf: <span className="font-medium text-slate-700">{u.performance}</span>
+                                                    <span className="text-xs text-[var(--front-secondary)]">
+                                                        Perf: <span className="font-medium text-[var(--front-primary)]">{u.performance}</span>
                                                     </span>
                                                 )}
                                                 {u.potential && (
-                                                    <span className={`inline-block rounded-md px-1.5 py-0.5 text-xs font-medium w-fit ${u.potential === 'High' ? 'bg-[#f3e6ff] text-[#8800ff]' : u.potential === 'Medium' ? 'bg-slate-100 text-slate-600' : 'bg-orange-50 text-orange-600'}`}>
+                                                    <span className={`inline-block rounded-md px-1.5 py-0.5 text-xs font-medium w-fit ${u.potential === 'High' ? 'bg-[var(--primary-very-light-color)] text-[var(--primary-color)]' : u.potential === 'Medium' ? 'bg-[var(--back-primary)] text-[var(--front-secondary)]' : 'bg-orange-50 text-orange-600'}`}>
                                                         {u.potential}
                                                     </span>
                                                 )}
                                             </div>
                                         </td>
                                         <td className="px-4 py-3 text-right">
-                                            <button onClick={() => openEdit(u)} className="p-1.5 rounded-lg hover:bg-[#f3e6ff] text-slate-400 hover:text-[#8800ff] transition-colors mr-1">
+                                            <button onClick={() => openEdit(u)} className="p-1.5 rounded-lg hover:bg-[var(--primary-very-light-color)] text-[var(--front-secondary)] hover:text-[var(--primary-color)] transition-colors mr-1">
                                                 <i className="ti ti-edit text-sm" />
                                             </button>
-                                            <button onClick={() => handleDelete(u.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors">
+                                            <button onClick={() => handleDelete(u.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-[var(--front-secondary)] hover:text-red-500 transition-colors">
                                                 <i className="ti ti-trash text-sm" />
                                             </button>
                                         </td>
@@ -197,8 +195,7 @@ export const Users = () => {
                         </table>
                     </div>
 
-                    {/* Footer */}
-                    <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                    <div className="px-4 py-3 border-t border-[var(--back-secondary)] flex items-center justify-between text-xs text-[var(--front-secondary)]">
                         <span>Showing {filtered.length} of {users.length} users</span>
                         <span>{selected.length > 0 ? `${selected.length} selected` : ''}</span>
                     </div>
@@ -208,8 +205,8 @@ export const Users = () => {
             {/* Modal */}
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="w-full sm:max-w-xl bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-                        <div className="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
+                    <div className="w-full sm:max-w-xl bg-[var(--back-primary)] rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+                        <div className=" border-b border-[var(--back-secondary)] px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
                             <div className="flex items-center gap-3">
                                 {editing && (
                                     <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold"
@@ -217,9 +214,9 @@ export const Users = () => {
                                         {initials(editing.name)}
                                     </div>
                                 )}
-                                <h2 className="text-base font-bold text-slate-800">{editing ? `Edit — ${editing.name}` : 'New User'}</h2>
+                                <h2 className="text-base font-bold text-[var(--front-primary)]">{editing ? `Edit — ${editing.name}` : 'New User'}</h2>
                             </div>
-                            <button onClick={() => setShowModal(false)} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 transition-colors">
+                            <button onClick={() => setShowModal(false)} className="p-1.5 rounded-lg hover:bg-[var(--back-primary)] text-[var(--front-secondary)] transition-colors">
                                 <i className="ti ti-x text-lg" />
                             </button>
                         </div>
@@ -227,91 +224,80 @@ export const Users = () => {
                         <div className="p-6 space-y-5">
                             {/* Identity */}
                             <div>
-                                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Identity</p>
+                                <p className="text-[11px] font-bold text-[var(--front-secondary)] uppercase tracking-widest mb-3">Identity</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div className="sm:col-span-2">
-                                        <label className="text-xs text-slate-500 mb-1 block">Full Name *</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Full Name *</label>
                                         <input placeholder="John Doe" value={form.name}
-                                            onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className={inputCls} />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Email *</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Email *</label>
                                         <input type="email" placeholder="john@example.com" value={form.email}
-                                            onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className={inputCls} />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Phone</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Phone</label>
                                         <input placeholder="+91 9876543210" value={form.phone}
-                                            onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className={inputCls} />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Date of Birth</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Date of Birth</label>
                                         <input type="date" value={form.date_of_birth}
-                                            onChange={e => setForm(f => ({ ...f, date_of_birth: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, date_of_birth: e.target.value }))} className={inputCls} />
                                     </div>
                                 </div>
                             </div>
 
                             {/* Role */}
                             <div>
-                                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Role</p>
+                                <p className="text-[11px] font-bold text-[var(--front-secondary)] uppercase tracking-widest mb-3">Role</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Department</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Department</label>
                                         <input placeholder="e.g. Engineering" value={form.department}
-                                            onChange={e => setForm(f => ({ ...f, department: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, department: e.target.value }))} className={inputCls} />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Position</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Position</label>
                                         <input placeholder="e.g. Senior Developer" value={form.position}
-                                            onChange={e => setForm(f => ({ ...f, position: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, position: e.target.value }))} className={inputCls} />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Date of Joining</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Date of Joining</label>
                                         <input type="date" value={form.date_of_joining}
-                                            onChange={e => setForm(f => ({ ...f, date_of_joining: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, date_of_joining: e.target.value }))} className={inputCls} />
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Experience (years)</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Experience (years)</label>
                                         <input type="number" placeholder="0" value={form.total_experience}
-                                            onChange={e => setForm(f => ({ ...f, total_experience: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, total_experience: e.target.value }))} className={inputCls} />
                                     </div>
                                 </div>
                             </div>
 
                             {/* Metrics */}
                             <div>
-                                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Metrics</p>
+                                <p className="text-[11px] font-bold text-[var(--front-secondary)] uppercase tracking-widest mb-3">Metrics</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Performance</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Performance</label>
                                         <select value={form.performance}
-                                            onChange={e => setForm(f => ({ ...f, performance: e.target.value }))}
-                                            className={selectCls}>
-                                            {PERFORMANCE.map(p => <option key={p}>{p}</option>)}
+                                            onChange={e => setForm(f => ({ ...f, performance: e.target.value }))} className={selectCls}>
+                                            {PERFORMANCE.map(p => <option key={p} className=''>{p}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">Potential</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">Potential</label>
                                         <select value={form.potential}
-                                            onChange={e => setForm(f => ({ ...f, potential: e.target.value }))}
-                                            className={selectCls}>
+                                            onChange={e => setForm(f => ({ ...f, potential: e.target.value }))} className={selectCls}>
                                             {POTENTIAL.map(p => <option key={p}>{p}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="text-xs text-slate-500 mb-1 block">CTC (₹)</label>
+                                        <label className="text-xs text-[var(--front-secondary)] mb-1 block">CTC (₹)</label>
                                         <input type="number" placeholder="0" value={form.ctc}
-                                            onChange={e => setForm(f => ({ ...f, ctc: e.target.value }))}
-                                            className={inputCls} />
+                                            onChange={e => setForm(f => ({ ...f, ctc: e.target.value }))} className={inputCls} />
                                     </div>
                                 </div>
                             </div>
@@ -319,11 +305,11 @@ export const Users = () => {
 
                         <div className="px-6 pb-6 flex gap-3">
                             <button onClick={() => setShowModal(false)}
-                                className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                                className="flex-1 rounded-xl border border-[var(--back-secondary)] py-2.5 text-sm font-medium text-[var(--front-secondary)] hover:bg-[var(--back-primary)] transition-colors">
                                 Cancel
                             </button>
                             <button onClick={handleSave}
-                                className="flex-1 rounded-xl bg-[#8800ff] py-2.5 text-sm font-semibold text-white hover:bg-[#5700a3] active:scale-95 transition-all">
+                                className="flex-1 rounded-xl bg-[var(--primary-color)] py-2.5 text-sm font-semibold text-white hover:bg-[var(--primary-bold-color)] active:scale-95 transition-all">
                                 {editing ? 'Save Changes' : 'Create User'}
                             </button>
                         </div>
