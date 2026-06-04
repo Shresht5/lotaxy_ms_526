@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useToast } from '../components/ToastHook';
+import { useToast } from '../store/ToastContext';
 
 const EMPTY = {
     name: '', email: '', phone: '', department: '', position: '',

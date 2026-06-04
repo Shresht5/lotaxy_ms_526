@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useToast } from '../components/ToastHook';
+import { useToast } from '../store/ToastContext';
+import { useTheme } from '../store/ThemeContext';
 
 interface DashStats {
     totalUsers: number;
@@ -25,6 +26,7 @@ export const Dashboard = () => {
     const [loading, setLoading] = useState(true);
 
     const { addToast } = useToast();
+    const { theme, toggleTheme } = useTheme();
 
     useEffect(() => {
         const load = async () => {
@@ -309,15 +311,15 @@ export const Dashboard = () => {
                                 { label: 'Add Employee', icon: 'ti-user-plus', color: 'text-[#8800ff]', bg: 'bg-[#f3e6ff]', do: () => { addToast('Employ', 'green') } },
                                 { label: 'New Order', icon: 'ti-shopping-cart-plus', color: 'text-green-600', bg: 'bg-green-50', do: () => { addToast('mange', 'blue') } },
                                 { label: 'Add Product', icon: 'ti-package', color: 'text-orange-500', bg: 'bg-orange-50', do: () => { addToast('error', 'red') } },
-                                { label: 'Mark Attendance', icon: 'ti-calendar-plus', color: 'text-blue-600', bg: 'bg-blue-50', do: () => { addToast('go', 'green') } },
+                                { label: 'Mark Attendance', icon: 'ti-calendar-plus', color: 'text-blue-600', bg: 'bg-blue-50', do: () => { addToast('go', 'green'); toggleTheme(); } },
                             ].map(q => (
-                                <button key={q.label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50 transition-all text-center" onClick={q.do}>
+                                <button key={q.label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50 transition-all text-center dark:bg-slate-700" onClick={q.do}>
                                     <div className={`w-8 h-8 rounded-lg ${q.bg} flex items-center justify-center`}>
 
                                         <i className={`ti ${q.icon} ${q.color} text-sm`} />
 
                                     </div>
-                                    <span className="text-xs text-slate-600 font-medium leading-tight">{q.label}</span>
+                                    <span className="text-xs text-slate-600 dark:text-white font-medium leading-tight">{q.label}</span>
                                 </button>
                             ))}
                         </div>

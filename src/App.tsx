@@ -1,6 +1,4 @@
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { Home } from './page/Home';
-import { About } from './page/About';
 import { Inventory } from './page/Inventory';
 import './index.css'
 import { Sidebar } from './components/SideBar';
@@ -10,19 +8,19 @@ import { Clients } from './page/Client';
 import { Projects } from './page/Project';
 import { Orders } from './page/Orders';
 import { Dashboard } from './page/Dashboard';
-import { ToastProvider } from './components/ToastHook'
+import { Store } from './store/Store'
 import { Analytics } from './page/Analytics';
+import Setting from './page/Setting';
 
 export default () => {
     return (
         <MemoryRouter>
             <div className="flex h-screen relative">
-                <ToastProvider>
+                <Store>
                     <Sidebar />
                     <main className="flex-1 overflow-auto pl-[52px]">
                         <Routes>
                             <Route path="/" element={<Dashboard />} />
-                            <Route path="/about" element={<About />} />
                             <Route path="/hr" element={<HR />} />
                             <Route path="/project" element={<Projects />} />
                             <Route path="/clients" element={<Clients />} />
@@ -30,9 +28,10 @@ export default () => {
                             <Route path="/inventory" element={<Inventory />} />
                             <Route path="/analytics" element={<Analytics />} />
                             <Route path="/users" element={<Users />} />
+                            <Route path="/setting" element={<Setting />} />
                         </Routes>
                     </main>
-                </ToastProvider>
+                </Store>
             </div>
         </MemoryRouter>
     )

@@ -12,7 +12,7 @@ const links = [
 ];
 
 const bottom = [
-    { path: '/settings', icon: 'ti-settings', label: 'Settings' },
+    { path: '/setting', icon: 'ti-settings', label: 'Setting' },
 ];
 
 export function Sidebar() {
@@ -20,15 +20,14 @@ export function Sidebar() {
     const { pathname } = useLocation();
 
     const Item = ({ path, icon, label }: typeof links[0]) => (
-        <button
-            title={label}
+        <button title={label}
             onClick={() => navigate(path)}
             className={`
         group flex items-center gap-3 px-2 py-2 rounded-lg w-full
         transition-colors duration-150 cursor-pointer
         ${pathname === path
-                    ? ' text-[var(--primary-bold-color)]  hover:bg-white'
-                    : 'text-[var(--primary-light-color)] hover:bg-white'}
+                    ? ' text-[var(--primary-bold-color)] hover:bg-[var(--primary-light-color)] hover:text-white'
+                    : ' text-[var(--primary-color)] hover:bg-[var(--primary-light-color)] hover:text-white'}
       `}
         >
             <i className={`ti ${icon} text-lg w-5 shrink-0 text-center`} aria-hidden="true" />
@@ -39,7 +38,7 @@ export function Sidebar() {
     );
 
     return (
-        <nav className=" absolute top-0 left-0 z-[100] group/nav flex flex-col gap-1 px-2 py-3  w-[52px] hover:w-[180px]     transition-[width] duration-200 ease-in-out      bg-[var(--primary-very-light-color)] border-r       h-screen overflow-hidden shrink-0 [&.expanded]:w-[180px]    ">
+        <nav className="  absolute top-0 left-0 z-[100] group/nav flex flex-col gap-1 px-2 py-3  w-[52px] hover:w-[180px]  shadow-[var(--primary-light-color)] shadow-xl   transition-[width] duration-200 ease-in-out      bg-[var(--primary-very-light-color)]        h-screen overflow-hidden shrink-0 [&.expanded]:w-[180px]    ">
             {links.map(l => <Item key={l.path} {...l} />)}
             <div className="flex-1" />
             {bottom.map(l => <Item key={l.path} {...l} />)}
