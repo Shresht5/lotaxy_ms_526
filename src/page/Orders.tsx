@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useToast } from '../store/ToastContext';
 
 // ── Types ───────────────────────────────────────────────────
 
@@ -90,6 +91,8 @@ export const Orders = () => {
     const [editing, setEditing] = useState<Order | null>(null);
 
     const [form, setForm] = useState({ ...EMPTY_FORM });
+    const { addToast } = useToast();
+
 
     // ── Load ────────────────────────────────────────────────
 
@@ -205,12 +208,15 @@ export const Orders = () => {
         }
         setShowModal(false);
         load();
+        addToast('Order Saved', 'green')
+
     };
 
     const handleDelete = async (id: number) => {
         if (confirm('Delete this order?')) {
             await window.api.deleteOrder(id);
             load();
+            addToast('Order Removed', 'blue')
         }
     };
 

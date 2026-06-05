@@ -12,6 +12,7 @@ const links = [
 ];
 
 const bottom = [
+    { path: '/Rough', icon: 'ti-settings', label: 'Rough' },
     { path: '/setting', icon: 'ti-settings', label: 'Setting' },
 ];
 

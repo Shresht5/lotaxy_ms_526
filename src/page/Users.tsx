@@ -61,7 +61,7 @@ export const Users = () => {
     };
 
     const handleDelete = async (id: number) => {
-        if (confirm('Delete this user?')) { await window.api.deleteUser(id); load(); }
+        if (confirm('Delete this user?')) { await window.api.deleteUser(id); load(); addToast('User Removed', 'blue') }
     };
 
     const toggleSelect = (id: number) => setSelected(s => s.includes(id) ? s.filter(x => x !== id) : [...s, id]);

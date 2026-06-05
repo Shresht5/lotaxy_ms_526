@@ -26,7 +26,7 @@ export const Dashboard = () => {
     const [loading, setLoading] = useState(true);
 
     const { addToast } = useToast();
-    const { theme, toggleTheme } = useTheme();
+    const { toggleTheme } = useTheme();
 
     useEffect(() => {
         const load = async () => {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useToast } from '../store/ToastContext';
 
 const EMPTY = { name: '', email: '', phone: '', address: '', company_name: '', status: 'Active' };
 
@@ -11,6 +12,7 @@ export const Clients = () => {
     const [form, setForm] = useState(EMPTY);
     const [selected, setSelected] = useState<number[]>([]);
     const [viewDetail, setViewDetail] = useState<Client | null>(null);
+    const { addToast } = useToast();
 
     const load = () => window.api.getClients().then(data => setClients(data ?? []));
     useEffect(() => { load(); }, []);
@@ -42,10 +44,11 @@ export const Clients = () => {
         }
         setShowModal(false);
         load();
+        addToast('Client Saved', 'green')
     };
 
     const handleDelete = async (id: number) => {
-        if (confirm('Delete this client?')) { await window.api.deleteClient(id); load(); }
+        if (confirm('Delete this client?')) { await window.api.deleteClient(id); load(); addToast('Client Removed', 'blue') }
     };
 
     const toggleSelect = (id: number) => setSelected(s => s.includes(id) ? s.filter(x => x !== id) : [...s, id]);

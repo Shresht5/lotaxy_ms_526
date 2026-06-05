@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useToast } from '../store/ToastContext';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -75,6 +76,8 @@ export const Projects = () => {
     const [form, setForm] = useState({ ...EMPTY_FORM });
     const [expandedId, setExpandedId] = useState<number | null>(null);
     const sliderRef = useRef<HTMLInputElement>(null);
+    const { addToast } = useToast();
+
 
     // ── Data ─────────────────────────────────────────────────────────────────
 
@@ -145,10 +148,11 @@ export const Projects = () => {
         }
         setShowModal(false);
         load();
+        addToast('Project Saved', 'green')
     };
 
     const handleDelete = async (id: number) => {
-        if (confirm('Delete this project?')) { await window.api.deleteProject(id); load(); }
+        if (confirm('Delete this project?')) { await window.api.deleteProject(id); load(); addToast('Project Removed', 'blue') }
     };
 
     const setField = (key: keyof typeof EMPTY_FORM, val: unknown) =>

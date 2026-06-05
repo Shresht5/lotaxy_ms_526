@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useToast } from '../store/ToastContext';
 
 const STATUSES = ['Present', 'Absent', 'Leave', 'Half Day'];
 
@@ -29,6 +30,7 @@ export const HR = () => {
     const [editing, setEditing] = useState<Attendance | null>(null);
     const [form, setForm] = useState({ user_id: '', date: today(), check_in: nowTime(), status: 'Present', remark: '' });
     const [tab, setTab] = useState<'date' | 'all'>('date');
+    const { addToast } = useToast();
 
     const loadByDate = () => window.api.getAttendanceByDate(date).then(data => setRecords(data ?? []));
     const loadAll = () => window.api.getAllAttendance().then(data => setRecords(data ?? []));
@@ -73,10 +75,11 @@ export const HR = () => {
         }
         setShowModal(false);
         load();
+        addToast('Attandence Saved', 'green')
     };
 
     const handleDelete = async (id: number) => {
-        if (confirm('Delete this record?')) { await window.api.deleteAttendance(id); load(); }
+        if (confirm('Delete this record?')) { await window.api.deleteAttendance(id); load(); addToast('Attendence Removed', 'blue') }
     };
 
     const initials = (name: string) => name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
@@ -98,10 +101,8 @@ export const HR = () => {
                         <span className="rounded-full bg-[var(--primary-very-light-color)] text-[var(--primary-color)] text-xs font-semibold px-2.5 py-0.5">{records.length}</span>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
-                        {/* Tab toggle */}
                         {tab === 'date' && (
-                            <input type="date" value={date} onChange={e => setDate(e.target.value)}
-                                className={`${inputCls} w-auto`} />
+                            <input type="date" value={date} onChange={e => setDate(e.target.value)} className={` rounded-lg border bg-[var(--back-primary)] border-[var(--primary-color)] px-3 py-1 text-sm text-[var(--front-primary)] placeholder:text-[var(--front-secondary)] focus:border-[var(--primary-very-bold-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]`} />
                         )}
                         <div className="flex bg-[var(--back-primary)] rounded-lg p-0.5 text-xs font-medium">
                             <button onClick={() => setTab('date')} className={`px-3 py-1.5 rounded-md transition-colors ${tab === 'date' ? 'bg-[var(--front-primary)] text-[var(--primary-color)] shadow-sm' : 'text-[var(--front-secondary)]'}`}>

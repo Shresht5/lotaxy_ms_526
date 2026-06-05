@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Product } from '../types/product';
+import { useToast } from '../store/ToastContext';
 const EMPTY = { name: '', price: '', mrp: '', stock: '', category: '', detail: '', image_path: '' };
 
 export const Inventory = () => {
@@ -9,6 +10,7 @@ export const Inventory = () => {
     const [editing, setEditing] = useState<Product | null>(null);
     const [form, setForm] = useState(EMPTY);
     const imagePathRef = useRef('');
+    const { addToast } = useToast();
 
     const load = () => window.api.getProducts().then(data => setProducts(data ?? []));
     useEffect(() => { load(); }, []);
@@ -60,10 +62,12 @@ export const Inventory = () => {
         }
         setShowModal(false);
         load();
+        addToast('Product Saved', 'green')
+
     };
 
     const handleDelete = async (id: number) => {
-        if (confirm('Delete this product?')) { await window.api.deleteProduct(id); load(); }
+        if (confirm('Delete this product?')) { await window.api.deleteProduct(id); load(); addToast('Product Removed', 'blue') }
     };
 
     const fmt = (v: any) => `₹${Number(v ?? 0).toLocaleString('en-IN')}`;
