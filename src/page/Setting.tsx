@@ -83,7 +83,7 @@ const Setting = () => {
                             <div className="flex justify-end">
                                 <button
                                     onClick={() => { savePassword(); addToast('Password Saved', 'green') }}
-                                    className="rounded-lg bg-purple-600 px-5 py-2.5 font-medium text-white transition hover:bg-purple-700"
+                                    className="rounded-lg bg-[var(--primary-color)] px-5 py-2.5 font-medium text-[var(--back-primary)] transition hover:opacity-90"
                                 >
                                     Save Password
                                 </button>

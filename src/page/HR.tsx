@@ -105,10 +105,10 @@ export const HR = () => {
                             <input type="date" value={date} onChange={e => setDate(e.target.value)} className={` rounded-lg border bg-[var(--back-primary)] border-[var(--primary-color)] px-3 py-1 text-sm text-[var(--front-primary)] placeholder:text-[var(--front-secondary)] focus:border-[var(--primary-very-bold-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]`} />
                         )}
                         <div className="flex bg-[var(--back-primary)] rounded-lg p-0.5 text-xs font-medium">
-                            <button onClick={() => setTab('date')} className={`px-3 py-1.5 rounded-md transition-colors ${tab === 'date' ? 'bg-[var(--front-primary)] text-[var(--primary-color)] shadow-sm' : 'text-[var(--front-secondary)]'}`}>
+                            <button onClick={() => setTab('date')} className={`px-3 py-1.5 rounded-md transition-colors ${tab === 'date' ? 'border-[var(--primary-color)] border-2 text-[var(--primary-color)] shadow-sm' : 'text-[var(--front-secondary)]'}`}>
                                 By Date
                             </button>
-                            <button onClick={() => setTab('all')} className={`px-3 py-1.5 rounded-md transition-colors ${tab === 'all' ? 'bg-[var(--front-primary)] text-[var(--primary-color)] shadow-sm' : 'text-[var(--front-secondary)]'}`}>
+                            <button onClick={() => setTab('all')} className={`px-3 py-1.5 rounded-md transition-colors ${tab === 'all' ? 'border-[var(--primary-color)] border-2 text-[var(--primary-color)] shadow-sm' : 'text-[var(--front-secondary)]'}`}>
                                 All Records
                             </button>
                         </div>

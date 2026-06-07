@@ -1,6 +1,6 @@
 {
-  "name": "management",
-  "productName": "management",
+  "name": "lotaxy",
+  "productName": "Lotaxy",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",
@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": {
-    "name": "Shreshta",
+    "name": "Shresht5",
     "email": "117246220+Shresht5@users.noreply.github.com"
   },
   "license": "MIT",

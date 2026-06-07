@@ -59,4 +59,6 @@ export const registerIpcsHandler = () => {
         fs.writeFileSync(destPath, Buffer.from(base64, 'base64'));
         return destPath;
     });
+
+
 }

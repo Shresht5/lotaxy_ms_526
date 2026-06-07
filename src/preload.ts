@@ -46,3 +46,10 @@ contextBridge.exposeInMainWorld('api', {
     updateOrder: (id: number, product_id: number | null, product_name: string, product_price: number, receiver_name: string, phone: string, email: string, address: string, discount: number, quantity: number, final_amount: number, status: string) => ipcRenderer.invoke('order-update', id, product_id, product_name, product_price, receiver_name, phone, email, address, discount, quantity, final_amount, status),
     deleteOrder: (id: number) => ipcRenderer.invoke('order-delete', id),
 });
+
+contextBridge.exposeInMainWorld("electronAPI", {
+    minimize: () => ipcRenderer.send("window-minimize"),
+    maximize: () => ipcRenderer.send("window-maximize"),
+    close: () => ipcRenderer.send("window-close"),
+
+});

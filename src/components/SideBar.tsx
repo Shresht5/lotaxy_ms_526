@@ -12,7 +12,6 @@ const links = [
 ];
 
 const bottom = [
-    { path: '/Rough', icon: 'ti-settings', label: 'Rough' },
     { path: '/setting', icon: 'ti-settings', label: 'Setting' },
 ];
 
@@ -39,7 +38,7 @@ export function Sidebar() {
     );
 
     return (
-        <nav className="  absolute top-0 left-0 z-[100] group/nav flex flex-col gap-1 px-2 py-3  w-[52px] hover:w-[180px]  shadow-[var(--primary-bold-color)] shadow-xl   transition-[width] duration-200 ease-in-out      bg-[var(--primary-very-light-color)]        h-screen overflow-hidden shrink-0 [&.expanded]:w-[180px]    ">
+        <nav className=" fixed top-10 left-0 z-[100] group/nav flex flex-col gap-1 px-2 py-3  w-[52px] hover:w-[180px]  shadow-[var(--primary-bold-color)] shadow-xl   transition-[width] duration-200 ease-in-out      bg-[var(--primary-very-light-color)]        h-[calc(100%-40px)] overflow-hidden shrink-0 [&.expanded]:w-[180px]    ">
             {links.map(l => <Item key={l.path} {...l} />)}
             <div className="flex-1" />
             {bottom.map(l => <Item key={l.path} {...l} />)}

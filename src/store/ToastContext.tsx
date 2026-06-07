@@ -37,7 +37,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         <ToastContext.Provider value={{ addToast }}>
             {children}
             {/* FIX 2: Added pointer-events-none so your dashboard buttons remain clickable */}
-            <div className="fixed top-5 right-10 flex flex-col-reverse gap-2 z-[1000] pointer-events-none">
+            <div className="fixed top-[60px] right-10 flex flex-col-reverse gap-2 z-[500] pointer-events-none">
                 {toasts.map((t) => (
                     <div
                         key={t.id}

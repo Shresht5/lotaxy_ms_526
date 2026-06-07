@@ -8,12 +8,8 @@ import { getAllOrders, addOrder, getOrderById, deleteOrder, updateOrder } from '
 import { getAllAttendance, getAttendanceByDate, getAttendanceByUser, markAttendance, updateAttendance, deleteAttendance } from './services/database/attendance';
 import { getAllClients, addClient, updateClient, deleteClient } from './services/database/client';
 import { addProject, deleteProject, getAllProjects, getProjectById, updateProject } from './services/database/project';
-import fs from 'fs';
 import { registerIpcsHandler } from './main/ipcs';
 
-
-
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
 }
@@ -22,6 +18,8 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false, // removes default OS title bar
+    icon: path.join(process.resourcesPath, 'icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       webSecurity: false,
@@ -38,6 +36,15 @@ const createWindow = () => {
     );
   }
   // mainWindow.webContents.openDevTools();
+
+  ipcMain.on("window-minimize", () => mainWindow.minimize());
+  ipcMain.on("window-maximize", () => {
+    if (mainWindow.isMaximized()) mainWindow.unmaximize();
+    else mainWindow.maximize();
+  });
+  ipcMain.on("window-close", () => mainWindow.close());
+
+
 };
 
 // This method will be called when Electron has finished
